@@ -1,0 +1,31 @@
+jwt:
+  secret-key: 12345123451234512345123451234512345123451234512345
+  access-exp: 6000
+  refresh-exp: 32423
+  header: Authorization
+  prefix: Bearer
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_URL:localhost}:3306/socket
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:080329}
+
+  jpa:
+    hibernate:
+      ddl-auto: ${DDL:update}
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+        show_sql: ${SHOW_SQL:true}
+        jdbc.batch_size: 200
+    open-in-view: false
+
+redis:
+  host: localhost
+  port: 6379
+
+socket:
+  port: 8082
