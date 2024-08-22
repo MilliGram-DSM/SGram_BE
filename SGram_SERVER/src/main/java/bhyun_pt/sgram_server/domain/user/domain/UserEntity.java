@@ -1,7 +1,6 @@
 package bhyun_pt.sgram_server.domain.user.domain;
 
 import bhyun_pt.sgram_server.domain.chat.domain.entity.ChatEntity;
-import bhyun_pt.sgram_server.domain.user.domain.role.Role;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -28,9 +27,6 @@ public class UserEntity {
 
     @Column(nullable = false)
     private String phone;
-
-    @Enumerated(EnumType.STRING)
-    private Role role;
 
     @OneToMany(mappedBy = "chatId", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<ChatEntity> chats = new ArrayList<>();

@@ -7,12 +7,12 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class SocketRunner implements CommandLineRunner { // 커맨드 라인 러너 스프링 시작후 바로 실행할 코드를 정의
+public class SocketRunner implements CommandLineRunner { // CommandLineRunner : 스프링 시작후 바로 실행할 코드를 정의
 
     private final SocketIOServer socketIOServer;
 
     @Override
     public void run(String... args) {
-        socketIOServer.start();
+        socketIOServer.start(); // 소켓 서버 시작
     }
 }

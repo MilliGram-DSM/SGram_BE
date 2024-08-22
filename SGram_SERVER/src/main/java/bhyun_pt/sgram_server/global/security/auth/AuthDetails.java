@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Getter
 @RequiredArgsConstructor
@@ -17,9 +18,10 @@ public class AuthDetails implements UserDetails {
 
     private final UserEntity userEntity;
 
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new ArrayList<>(Collections.singleton(new SimpleGrantedAuthority("ROLE_"+userEntity.getRole().toString())));
+        return List.of();
     }
 
     @Override

@@ -4,12 +4,15 @@ import bhyun_pt.sgram_server.domain.refreshtoken.RefreshToken;
 import bhyun_pt.sgram_server.domain.refreshtoken.RefreshTokenRepository;
 import bhyun_pt.sgram_server.global.security.exception.ExpiredTokenException;
 import bhyun_pt.sgram_server.global.security.auth.AuthDetailsService;
+import com.corundumstudio.socketio.SocketIOClient;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,6 +26,7 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
 
+    private static final Logger log = LoggerFactory.getLogger(JwtTokenProvider.class);
     private final JwtProperty jwtProperty;
     private final AuthDetailsService authDetailsService;
     private final RefreshTokenRepository refreshTokenRepository;
@@ -64,6 +68,8 @@ public class JwtTokenProvider {
     public Authentication getAuthentication(String token) {
         Claims claims = getClaims(token);
         UserDetails userDetails = authDetailsService.loadUserByUsername(claims.getSubject());
+        log.info(claims.toString());
+        log.info(userDetails.toString());
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
@@ -93,5 +99,14 @@ public class JwtTokenProvider {
         return null;
     }
 
+    public String resolveToken(SocketIOClient socketIOClient) {
 
+        String bearerToken = socketIOClient.getHandshakeData().getHttpHeaders().get(jwtProperty.getHeader());
+
+        if(StringUtils.hasText(bearerToken) && bearerToken.startsWith(jwtProperty.getPrefix())
+                && bearerToken.length() > jwtProperty.getPrefix().length() + 1) {
+            return bearerToken.substring(jwtProperty.getPrefix().length()+1);
+        }
+        return null;
+    }
 }

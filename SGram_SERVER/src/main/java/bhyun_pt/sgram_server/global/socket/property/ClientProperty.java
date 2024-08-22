@@ -6,6 +6,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ClientProperty {
 
-    public static final String USER_KEY = "user_key";
+    public static final String USER_KEY = "user_key"; // userkey 식별 변수 설정
 
 }

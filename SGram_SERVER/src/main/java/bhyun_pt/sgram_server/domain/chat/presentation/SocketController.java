@@ -4,7 +4,6 @@ import bhyun_pt.sgram_server.domain.chat.presentation.dto.request.SendChatReqeus
 import bhyun_pt.sgram_server.domain.chat.presentation.service.SendChatService;
 import bhyun_pt.sgram_server.global.socket.property.SocketProperty;
 import com.corundumstudio.socketio.SocketIOClient;
-import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.annotation.OnEvent;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SocketController {
 
-    private final SocketIOServer socketIOServer;
     private final SendChatService sendChatService;
 
     @OnEvent(SocketProperty.CHAT)

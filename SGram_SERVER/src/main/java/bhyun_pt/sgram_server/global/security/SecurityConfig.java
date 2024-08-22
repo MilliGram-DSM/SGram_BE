@@ -36,7 +36,7 @@ public class SecurityConfig {
         //요청에 대한 관한을 설정한다.
         http
                 .authorizeHttpRequests((auth)->auth
-                        .requestMatchers("/","/users/join","/users/login").permitAll());
+                        .requestMatchers("/**","/users/join","/users/login").permitAll());
                         // 해당 경로에 대한 모든 접근을 허용한다.
 
 
