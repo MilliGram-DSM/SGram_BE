@@ -3,24 +3,22 @@ package bhyun_pt.sgram_server.global.socket;
 import bhyun_pt.sgram_server.global.socket.exception.SocketExceptionListener;
 import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.annotation.SpringAnnotationScanner;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
-@RequiredArgsConstructor
 @Configuration
 public class SocketConfig extends com.corundumstudio.socketio.SocketConfig {
 
     @Value("${socket.port}")
     private Integer port;
 
-    private SocketExceptionListener socketExceptionListener;
-
     @Bean
     public SocketIOServer socketIOServer() {
 
         SocketConfig socketConfig = new SocketConfig();
+        SocketExceptionListener socketExceptionListener = new SocketExceptionListener();
         socketConfig.setReuseAddress(true); // 포트 주소 재사용 ture
 
         com.corundumstudio.socketio.Configuration configuration = new com.corundumstudio.socketio.Configuration();

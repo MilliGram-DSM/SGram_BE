@@ -8,9 +8,9 @@ jwt:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${DB_URL:localhost}:3306/socket
-    username: ${DB_USERNAME:root}
-    password: ${DB_PASSWORD:080329}
+    url: ENC(/gvTAKFOriUch4OWAK3d1Q==)
+    username: ENC(AnzeqZPgMSMst5/f/Mgp4I0VsdJ/JXaw)
+    password: ENC(iMoEIoqX0hycZ5MoVauYAJYkcH8ETbeC)
 
   jpa:
     hibernate:
