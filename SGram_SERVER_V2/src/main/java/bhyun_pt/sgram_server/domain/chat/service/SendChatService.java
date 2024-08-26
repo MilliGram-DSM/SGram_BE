@@ -2,6 +2,8 @@ package bhyun_pt.sgram_server.domain.chat.service;
 
 import bhyun_pt.sgram_server.domain.chat.domain.entity.ChatEntity;
 import bhyun_pt.sgram_server.domain.chat.domain.repository.ChatRepository;
+import bhyun_pt.sgram_server.domain.chat.presentation.dto.request.ChatRequest;
+import bhyun_pt.sgram_server.domain.chat.presentation.dto.response.ChatResponse;
 import bhyun_pt.sgram_server.domain.user.domain.UserEntity;
 import bhyun_pt.sgram_server.domain.user.domain.repositry.UserRepository;
 import bhyun_pt.sgram_server.domain.user.exception.UserNotFoundException;
@@ -22,17 +24,19 @@ public class SendChatService {
     private final UserFacade userFacade;
 
     @Transactional
-    public ChatEntity saveChatMessage(WebSocketSession session,TextMessage textMessage) {
+    public ChatResponse saveChatMessage(WebSocketSession session, ChatRequest chatRequest) {
 
         String accountId = (String) session.getAttributes().get("account_id");
         Long userId = userFacade.getUserId(accountId);
         UserEntity userEntity = userRepository.findById(userId).orElseThrow(() -> UserNotFoundException.EXCEPTION);
-        String text = textMessage.getPayload();
+        String text = chatRequest.getMessage();
 
-        return chatRepository.save(ChatEntity.builder()
+        chatRepository.save(ChatEntity.builder()
                         .accountId(accountId)
                         .message(text)
                         .userEntity(userEntity)
                 .build());
+
+        return new ChatResponse(accountId, chatRequest.getMessage());
     }
 }

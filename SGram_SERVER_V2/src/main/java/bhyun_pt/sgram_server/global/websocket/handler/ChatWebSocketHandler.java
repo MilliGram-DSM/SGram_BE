@@ -1,6 +1,8 @@
 package bhyun_pt.sgram_server.global.websocket.handler;
 
 import bhyun_pt.sgram_server.domain.chat.domain.entity.ChatEntity;
+import bhyun_pt.sgram_server.domain.chat.presentation.dto.request.ChatRequest;
+import bhyun_pt.sgram_server.domain.chat.presentation.dto.response.ChatResponse;
 import bhyun_pt.sgram_server.domain.chat.service.SendChatService;
 import bhyun_pt.sgram_server.global.security.jwt.JwtTokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -58,13 +60,14 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        ChatEntity chatEntity = mapper.readValue(message.getPayload(), ChatEntity.class);
 
-        sendChatService.saveChatMessage(session,message);
+        ChatRequest chatRequest = mapper.readValue(message.getPayload(), ChatRequest.class);
+
+        ChatResponse chatResponse = sendChatService.saveChatMessage(session,chatRequest);
 
         for(WebSocketSession webSocketSession : sessions) {
             if (webSocketSession.isOpen()) {
-                webSocketSession.sendMessage(new TextMessage(mapper.writeValueAsString(chatEntity)));
+                webSocketSession.sendMessage(new TextMessage(mapper.writeValueAsString(chatResponse)));
             }
         }
     }
