@@ -17,14 +17,15 @@ public class ChatEntity {
     private long chatId;
 
     @Column(nullable = false, length = 100)
-    private String content;
+    private String message;
 
     private String accountId;
 
     @Builder
-    public ChatEntity(String content, String accountId) {
+    public ChatEntity(String message, String accountId, UserEntity userEntity) {
         this.accountId = accountId;
-        this.content = content;
+        this.message = message;
+        this.userEntity = userEntity;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)

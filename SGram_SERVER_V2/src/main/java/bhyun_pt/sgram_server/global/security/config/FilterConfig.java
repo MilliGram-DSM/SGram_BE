@@ -1,4 +1,4 @@
-package bhyun_pt.sgram_server.global.security;
+package bhyun_pt.sgram_server.global.security.config;
 
 import bhyun_pt.sgram_server.global.error.ExceptionFilter;
 import bhyun_pt.sgram_server.global.security.jwt.JwtTokenFilter;

@@ -1,4 +1,4 @@
-package bhyun_pt.sgram_server.global.security;
+package bhyun_pt.sgram_server.global.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
