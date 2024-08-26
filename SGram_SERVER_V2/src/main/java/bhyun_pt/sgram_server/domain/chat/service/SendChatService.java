@@ -27,10 +27,11 @@ public class SendChatService {
         String accountId = (String) session.getAttributes().get("account_id");
         Long userId = userFacade.getUserId(accountId);
         UserEntity userEntity = userRepository.findById(userId).orElseThrow(() -> UserNotFoundException.EXCEPTION);
+        String text = textMessage.getPayload();
 
         return chatRepository.save(ChatEntity.builder()
                         .accountId(accountId)
-                        .message(String.valueOf(textMessage))
+                        .message(text)
                         .userEntity(userEntity)
                 .build());
     }
