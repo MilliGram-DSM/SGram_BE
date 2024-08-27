@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import static org.hibernate.query.sqm.tree.SqmNode.log;
+
 @RequiredArgsConstructor
 @Service
 public class SignInService {
@@ -26,6 +28,8 @@ public class SignInService {
         if(!passwordEncoder.matches(signInRequest.getPassword(), userEntity.getPassword())) {
             throw PasswordMisMatchException.EXCEPTION;
         }
+
+        log.info("login user name : " + signInRequest.getAccountId());
 
         String accessToken = jwtTokenProvider.generateToken(signInRequest.getAccountId());
         String refreshToken = jwtTokenProvider.generateRefreshToken(signInRequest.getAccountId());
