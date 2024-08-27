@@ -44,8 +44,8 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
             accountId = jwtTokenProvider.getAccountIdFromJWT(token);
             Long userId = jwtTokenProvider.getUserIdFromJWT(accountId);
 
-            log.info(accountId);
-            log.info(userId);
+            log.info("소켓 접속 유저 이름 : " + accountId);
+            log.info("소켓 접속 유저 아이디 : " + userId);
 
             session.getAttributes().put("user_id", userId);
             session.getAttributes().put("account_id", accountId);
@@ -61,7 +61,11 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 
-        ChatRequest chatRequest = mapper.readValue(message.getPayload(), ChatRequest.class);
+        log.info(message);
+
+        String payload = message.getPayload();
+
+        ChatRequest chatRequest = new ChatRequest(payload);
 
         ChatResponse chatResponse = sendChatService.saveChatMessage(session,chatRequest);
 

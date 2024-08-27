@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
+import static org.hibernate.query.sqm.tree.SqmNode.log;
+
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +29,9 @@ public class SendChatService {
     public ChatResponse saveChatMessage(WebSocketSession session, ChatRequest chatRequest) {
 
         String accountId = (String) session.getAttributes().get("account_id");
+        log.info("Jwt 유저 식별 : " + accountId);
         Long userId = userFacade.getUserId(accountId);
+        log.info("Jwt 유저 식별 : " + userId);
         UserEntity userEntity = userRepository.findById(userId).orElseThrow(() -> UserNotFoundException.EXCEPTION);
         String text = chatRequest.getMessage();
 
