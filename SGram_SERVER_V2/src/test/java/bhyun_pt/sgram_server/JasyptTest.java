@@ -20,6 +20,5 @@ public class JasyptTest {
         System.out.println(encryptedText);
         System.out.println(decryptedText);
 
-
     }
 }

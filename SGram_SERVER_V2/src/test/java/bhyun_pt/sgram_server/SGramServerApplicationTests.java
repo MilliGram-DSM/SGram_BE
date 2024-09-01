@@ -11,5 +11,4 @@ class SGramServerApplicationTests {
     void contextLoads() {
     }
 
-
 }
