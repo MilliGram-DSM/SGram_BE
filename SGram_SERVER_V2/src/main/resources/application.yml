@@ -1,5 +1,5 @@
 jwt:
-  secret-key: 12345123451234512345123451234512345123451234512345
+  secret-key: ENC(BaqsxvV/8BcMiqeS8BjzXMsYFWaLaHxsSrjj5nI/X+5fQx4LqmJoMAgIGnF/m5XyZYBQTZP4V4irkGeoP85/BA==)
   access-exp: 6000
   refresh-exp: 32423
   header: Authorization
@@ -8,9 +8,9 @@ jwt:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${DB_URL:localhost}:3306/socket
-    username: ${DB_USERNAME:root}
-    password: ${DB_PASSWORD:080329}
+    url: ENC(RUCPPtwl3+33OOhbvjQjWzxmmQKhhFAdweZDvUyRiL0/s82t19FCu4z6+JUDpvpy)
+    username: ENC(6UfvL18ujcGxOnTvwAi/YA==)
+    password: ENC(TQI22AIHkzxv58DnHbUERQ==)
 
   jpa:
     hibernate:
@@ -27,4 +27,8 @@ redis:
   host: localhost
   port: 6379
 
+jasypt:
+  encryptor:
+    bean: jasyptEncryptor
+    password: ${ENCRYPT_KEY}
 
